@@ -19,11 +19,13 @@ input bool   InpEnableNewYorkSession          = true;        // Enable New York 
 input string InpNewYorkRangeStartLocal        = "09:30";     // New York opening range start (Local NY time)
 input string InpNewYorkRangeEndLocal          = "10:00";     // New York opening range end (Local NY time)
 input string InpNewYorkCutoffLocal            = "";          // New York trading cutoff time (Local NY time); empty disables
+input string InpNewYorkTradeStartLocal        = "";          // New York trading start time (Local NY time); empty uses range end
 
 input bool   InpEnableLondonSession           = false;       // Enable London session
 input string InpLondonRangeStartLocal         = "07:30";     // London opening range start (Local London time)
 input string InpLondonRangeEndLocal           = "08:00";     // London opening range end (Local London time)
 input string InpLondonCutoffLocal             = "";          // London trading cutoff time (Local London time); empty disables
+input string InpLondonTradeStartLocal         = "";          // London trading start time (Local London time); empty uses range end
 
 // Risk Management
 input double InpRiskPerTradePercent           = 1.0;         // Risk per trade (% of equity)
@@ -84,6 +86,7 @@ struct SessionState
 	datetime sessionStart;
 	datetime sessionEnd;
 	datetime cutoffTime;
+	datetime tradeStartTime;
 	double   orbHigh;
 	double   orbLow;
 	int      tradesTaken;
@@ -217,22 +220,26 @@ void ComputeSessionTimes(SessionState &st, bool isNY)
 {
     int sh, sm, eh, em; bool ok1, ok2;
     int ch, cm; bool okCut = false;
+    int th, tm; bool okStart = false;
     if(isNY)
     {
         ok1 = ParseHHMM(InpNewYorkRangeStartLocal, sh, sm);
         ok2 = ParseHHMM(InpNewYorkRangeEndLocal,   eh, em);
         okCut = (StringLen(InpNewYorkCutoffLocal) > 0) && ParseHHMM(InpNewYorkCutoffLocal, ch, cm);
+        okStart = (StringLen(InpNewYorkTradeStartLocal) > 0) && ParseHHMM(InpNewYorkTradeStartLocal, th, tm);
     }
     else
     {
         ok1 = ParseHHMM(InpLondonRangeStartLocal, sh, sm);
         ok2 = ParseHHMM(InpLondonRangeEndLocal,   eh, em);
         okCut = (StringLen(InpLondonCutoffLocal) > 0) && ParseHHMM(InpLondonCutoffLocal, ch, cm);
+        okStart = (StringLen(InpLondonTradeStartLocal) > 0) && ParseHHMM(InpLondonTradeStartLocal, th, tm);
     }
     if(!(ok1 && ok2)) return;
     st.sessionStart = RegionLocalTodayToServerTime(isNY, sh, sm);
     st.sessionEnd   = RegionLocalTodayToServerTime(isNY, eh, em);
     st.cutoffTime   = okCut ? RegionLocalTodayToServerTime(isNY, ch, cm) : 0;
+    st.tradeStartTime = okStart ? RegionLocalTodayToServerTime(isNY, th, tm) : st.sessionEnd;
     st.orbComputed  = false;
 }
 
@@ -429,8 +436,8 @@ void ResetDailyState()
     g_todayMinEquity  = g_todayPeakEquity;
     g_dailyHalt = false;
     // Reset session states
-    g_stateNY.orbComputed = false; g_stateNY.tradesTaken = 0; g_stateNY.lastTradeTime = 0; g_stateNY.orbHigh = 0; g_stateNY.orbLow = 0; g_stateNY.sessionStart = 0; g_stateNY.sessionEnd = 0; g_stateNY.cutoffTime = 0;
-    g_stateLondon.orbComputed = false; g_stateLondon.tradesTaken = 0; g_stateLondon.lastTradeTime = 0; g_stateLondon.orbHigh = 0; g_stateLondon.orbLow = 0; g_stateLondon.sessionStart = 0; g_stateLondon.sessionEnd = 0; g_stateLondon.cutoffTime = 0;
+    g_stateNY.orbComputed = false; g_stateNY.tradesTaken = 0; g_stateNY.lastTradeTime = 0; g_stateNY.orbHigh = 0; g_stateNY.orbLow = 0; g_stateNY.sessionStart = 0; g_stateNY.sessionEnd = 0; g_stateNY.cutoffTime = 0; g_stateNY.tradeStartTime = 0;
+    g_stateLondon.orbComputed = false; g_stateLondon.tradesTaken = 0; g_stateLondon.lastTradeTime = 0; g_stateLondon.orbHigh = 0; g_stateLondon.orbLow = 0; g_stateLondon.sessionStart = 0; g_stateLondon.sessionEnd = 0; g_stateLondon.cutoffTime = 0; g_stateLondon.tradeStartTime = 0;
 }
 
 //====================================================================
@@ -581,6 +588,7 @@ void TrySessionBreakout(SessionState &st, bool isNY)
     if(st.tradesTaken >= InpMaxTradesPerSession) return;
     if(CooldownActive(st)) return;
     if(g_dailyHalt || g_overallHalt) return;
+    if(st.tradeStartTime > 0 && now < st.tradeStartTime) return; // before trade start
     if(st.cutoffTime > 0 && now >= st.cutoffTime) return; // no new entries after cutoff
 
     // Filters: ORB width and max SL
@@ -651,13 +659,15 @@ void RenderPanel()
     double bal = AccountInfoDouble(ACCOUNT_BALANCE);
     double dailyDDPct = (g_todayPeakEquity > 0) ? 100.0 * (g_todayPeakEquity - eq) / g_todayPeakEquity : 0.0;
     double overallDDPct = (g_initialEquity > 0) ? 100.0 * (g_initialEquity - eq) / g_initialEquity : 0.0;
-    string ny = StringFormat("NY: %s cut %s | ORB: %s | Trades: %d", 
+    string ny = StringFormat("NY: %s start %s cut %s | ORB: %s | Trades: %d", 
         TimeToString(g_stateNY.sessionStart, TIME_MINUTES) + "-" + TimeToString(g_stateNY.sessionEnd, TIME_MINUTES),
+        g_stateNY.tradeStartTime > 0 ? TimeToString(g_stateNY.tradeStartTime, TIME_MINUTES) : (TimeToString(g_stateNY.sessionEnd, TIME_MINUTES)),
         g_stateNY.cutoffTime > 0 ? TimeToString(g_stateNY.cutoffTime, TIME_MINUTES) : "-",
         g_stateNY.orbComputed ? ("H=" + DoubleToString(g_stateNY.orbHigh, (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS)) + ", L=" + DoubleToString(g_stateNY.orbLow, (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS))) : "pending",
         g_stateNY.tradesTaken);
-    string ldn = StringFormat("LDN: %s cut %s | ORB: %s | Trades: %d", 
+    string ldn = StringFormat("LDN: %s start %s cut %s | ORB: %s | Trades: %d", 
         TimeToString(g_stateLondon.sessionStart, TIME_MINUTES) + "-" + TimeToString(g_stateLondon.sessionEnd, TIME_MINUTES),
+        g_stateLondon.tradeStartTime > 0 ? TimeToString(g_stateLondon.tradeStartTime, TIME_MINUTES) : (TimeToString(g_stateLondon.sessionEnd, TIME_MINUTES)),
         g_stateLondon.cutoffTime > 0 ? TimeToString(g_stateLondon.cutoffTime, TIME_MINUTES) : "-",
         g_stateLondon.orbComputed ? ("H=" + DoubleToString(g_stateLondon.orbHigh, (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS)) + ", L=" + DoubleToString(g_stateLondon.orbLow, (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS))) : "pending",
         g_stateLondon.tradesTaken);
