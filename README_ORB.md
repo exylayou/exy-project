@@ -30,7 +30,9 @@ An Opening Range Breakout (ORB) Expert Advisor for MetaTrader 5 that trades brea
 ### Core Inputs (selected)
 - `Enable New York/London Session`: Toggle sessions independently
 - `NewYorkRangeStartLocal`, `NewYorkRangeEndLocal`: e.g., 09:30–10:00
+- `NewYorkCutoffLocal`: Optional local NY cutoff time after which no new trades are entered (e.g., 11:30)
 - `LondonRangeStartLocal`, `LondonRangeEndLocal`: e.g., 07:30–08:00
+- `LondonCutoffLocal`: Optional local London cutoff time after which no new trades are entered (e.g., 10:30)
 - `RiskPerTradePercent`: Percent of equity to risk per trade
 - `RiskRewardRatio`: TP distance = SL distance × RR
 - `MaxTradesPerSession`: Default 1
