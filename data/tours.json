@@ -1,0 +1,218 @@
+{
+  "tours": [
+    {
+      "tour_id": "tour_001",
+      "name": "La Soufriere Volcano Hike",
+      "description": "Embark on an unforgettable adventure to the summit of La Soufriere, an active volcano standing at 4,049 feet. Experience breathtaking panoramic views of the island and surrounding Caribbean Sea.",
+      "price_usd": 85,
+      "duration_hours": 6,
+      "activity_type": "Adventure",
+      "rating": 4.8,
+      "difficulty": "Challenging",
+      "max_group_size": 12,
+      "includes": [
+        "Expert guide",
+        "Transportation",
+        "Lunch and refreshments",
+        "Safety equipment"
+      ],
+      "meeting_point": "Kingstown Market Square",
+      "available_days": ["Monday", "Wednesday", "Friday", "Saturday"],
+      "image_url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+    },
+    {
+      "tour_id": "tour_002",
+      "name": "Tobago Cays Catamaran Experience",
+      "description": "Sail through crystal-clear turquoise waters to the stunning Tobago Cays. Snorkel with sea turtles, relax on pristine beaches, and enjoy a BBQ lunch on board.",
+      "price_usd": 145,
+      "duration_hours": 8,
+      "activity_type": "Water Sports",
+      "rating": 4.9,
+      "difficulty": "Easy",
+      "max_group_size": 20,
+      "includes": [
+        "Catamaran cruise",
+        "Snorkeling equipment",
+        "BBQ lunch",
+        "Open bar",
+        "Professional crew"
+      ],
+      "meeting_point": "Blue Lagoon Marina",
+      "available_days": ["Tuesday", "Thursday", "Saturday", "Sunday"],
+      "image_url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800"
+    },
+    {
+      "tour_id": "tour_003",
+      "name": "Historic Kingstown Walking Tour",
+      "description": "Discover the rich history and vibrant culture of Kingstown. Visit colonial architecture, bustling markets, historic churches, and sample local cuisine.",
+      "price_usd": 45,
+      "duration_hours": 3,
+      "activity_type": "Cultural",
+      "rating": 4.5,
+      "difficulty": "Easy",
+      "max_group_size": 15,
+      "includes": [
+        "Local guide",
+        "Market visit",
+        "Food tasting",
+        "Bottled water"
+      ],
+      "meeting_point": "St. Mary's Cathedral",
+      "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "image_url": "https://images.unsplash.com/photo-1555529669-2269763671c0?w=800"
+    },
+    {
+      "tour_id": "tour_004",
+      "name": "Dark View Falls & Beach Combo",
+      "description": "Experience the best of both worlds! Visit the stunning Dark View Falls with its natural pools, then unwind at a secluded black sand beach with lunch included.",
+      "price_usd": 75,
+      "duration_hours": 5,
+      "activity_type": "Nature",
+      "rating": 4.7,
+      "difficulty": "Moderate",
+      "max_group_size": 10,
+      "includes": [
+        "Transportation",
+        "Entrance fees",
+        "Beach lunch",
+        "Guide services",
+        "Swimming time"
+      ],
+      "meeting_point": "Villa Beach Resort",
+      "available_days": ["Monday", "Wednesday", "Friday", "Sunday"],
+      "image_url": "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800"
+    },
+    {
+      "tour_id": "tour_005",
+      "name": "Rum Distillery & Plantation Tour",
+      "description": "Journey through the history of Caribbean rum production. Tour a working distillery, explore lush plantations, and enjoy rum tastings with local delicacies.",
+      "price_usd": 65,
+      "duration_hours": 4,
+      "activity_type": "Cultural",
+      "rating": 4.6,
+      "difficulty": "Easy",
+      "max_group_size": 18,
+      "includes": [
+        "Distillery tour",
+        "Rum tasting",
+        "Plantation walk",
+        "Light refreshments",
+        "Transportation"
+      ],
+      "meeting_point": "Captain Bligh's Rum Bar",
+      "available_days": ["Tuesday", "Thursday", "Saturday"],
+      "image_url": "https://images.unsplash.com/photo-1566223556327-a34d53193592?w=800"
+    },
+    {
+      "tour_id": "tour_006",
+      "name": "Sunset Sailing & Beach BBQ",
+      "description": "Experience a magical Caribbean sunset aboard a traditional sailing yacht. Anchor at a secluded beach for a delicious BBQ dinner under the stars.",
+      "price_usd": 95,
+      "duration_hours": 4,
+      "activity_type": "Leisure",
+      "rating": 4.9,
+      "difficulty": "Easy",
+      "max_group_size": 16,
+      "includes": [
+        "Sunset sail",
+        "Beach BBQ dinner",
+        "Drinks included",
+        "Live music",
+        "Hotel pickup"
+      ],
+      "meeting_point": "Indian Bay Beach",
+      "available_days": ["Daily"],
+      "image_url": "https://images.unsplash.com/photo-1537778084146-dc2b9b7e3cdf?w=800"
+    },
+    {
+      "tour_id": "tour_007",
+      "name": "Mesopotamia Valley Eco Tour",
+      "description": "Explore the 'Breadbasket of St. Vincent' - a lush valley filled with tropical fruits, vegetables, and spices. Visit local farms and taste fresh produce.",
+      "price_usd": 55,
+      "duration_hours": 3.5,
+      "activity_type": "Nature",
+      "rating": 4.4,
+      "difficulty": "Easy",
+      "max_group_size": 12,
+      "includes": [
+        "Farm visits",
+        "Fruit tasting",
+        "Local guide",
+        "Transportation",
+        "Refreshments"
+      ],
+      "meeting_point": "Botanical Gardens Entrance",
+      "available_days": ["Monday", "Wednesday", "Friday"],
+      "image_url": "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800"
+    },
+    {
+      "tour_id": "tour_008",
+      "name": "Scuba Diving Adventure",
+      "description": "Dive into the underwater world of St. Vincent. Explore vibrant coral reefs, encounter tropical fish, and discover historic shipwrecks with certified instructors.",
+      "price_usd": 120,
+      "duration_hours": 5,
+      "activity_type": "Water Sports",
+      "rating": 4.8,
+      "difficulty": "Moderate",
+      "max_group_size": 8,
+      "includes": [
+        "2 dive sites",
+        "All equipment",
+        "Certified instructor",
+        "Boat transport",
+        "Snacks and drinks"
+      ],
+      "meeting_point": "Dive St. Vincent",
+      "available_days": ["Tuesday", "Thursday", "Saturday", "Sunday"],
+      "image_url": "https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800"
+    },
+    {
+      "tour_id": "tour_009",
+      "name": "Botanical Gardens & Fort Charlotte",
+      "description": "Visit the oldest botanical garden in the Western Hemisphere, then explore historic Fort Charlotte with panoramic views of Kingstown Harbor.",
+      "price_usd": 40,
+      "duration_hours": 3,
+      "activity_type": "Cultural",
+      "rating": 4.3,
+      "difficulty": "Easy",
+      "max_group_size": 20,
+      "includes": [
+        "Garden entrance",
+        "Fort entrance",
+        "Expert guide",
+        "Transportation",
+        "Bottled water"
+      ],
+      "meeting_point": "Cruise Ship Terminal",
+      "available_days": ["Daily"],
+      "image_url": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800"
+    },
+    {
+      "tour_id": "tour_010",
+      "name": "Zip Line Canopy Adventure",
+      "description": "Soar through the rainforest canopy on an exhilarating zip line tour. Experience the thrill of flying over lush vegetation with stunning mountain views.",
+      "price_usd": 89,
+      "duration_hours": 3,
+      "activity_type": "Adventure",
+      "rating": 4.7,
+      "difficulty": "Moderate",
+      "max_group_size": 10,
+      "includes": [
+        "7 zip line runs",
+        "Safety equipment",
+        "Trained guides",
+        "Transportation",
+        "Refreshments"
+      ],
+      "meeting_point": "Vermont Nature Trail",
+      "available_days": ["Monday", "Tuesday", "Thursday", "Saturday"],
+      "image_url": "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800"
+    }
+  ],
+  "metadata": {
+    "last_updated": "2025-12-10",
+    "total_tours": 10,
+    "currency": "USD",
+    "booking_advance_days": 2
+  }
+}
