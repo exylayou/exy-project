@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import colors from '../../themes/colors';
 
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = width - 32; // Assuming 16px margin on each side
+// Removed fixed width to allow flexible sizing in grids
 
 /**
  * PoiCard - Reusable component for displaying Points of Interest
@@ -97,11 +96,10 @@ const PoiCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    width: CARD_WIDTH,
+    flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 16,
-    marginHorizontal: 16,
-    marginVertical: 8,
+    borderRadius: 12,
+    margin: 8,
     shadowColor: colors.shadowDark,
     shadowOffset: {
       width: 0,
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: 240, // High aspect ratio for premium look
+    height: 180, // Adjusted for grid layout
     position: 'relative',
   },
   image: {
@@ -133,12 +131,12 @@ const styles = StyleSheet.create({
   },
   categoryBadge: {
     position: 'absolute',
-    top: 12,
-    right: 12,
+    top: 8,
+    right: 8,
     backgroundColor: colors.accent,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 16,
     shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
@@ -150,7 +148,7 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     color: colors.white,
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -160,16 +158,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 16,
+    padding: 12,
   },
   textContainer: {
     flexDirection: 'column',
   },
   name: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '700',
     color: colors.white,
-    marginBottom: 8,
+    marginBottom: 6,
     textShadowColor: colors.shadowDark,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
@@ -185,23 +183,23 @@ const styles = StyleSheet.create({
   },
   starIcon: {
     color: colors.star,
-    fontSize: 16,
-    marginRight: 2,
+    fontSize: 14,
+    marginRight: 1,
     textShadowColor: colors.shadowDark,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   starIconEmpty: {
     color: colors.lightGray,
-    fontSize: 16,
-    marginRight: 2,
+    fontSize: 14,
+    marginRight: 1,
     textShadowColor: colors.shadowDark,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   ratingText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
     textShadowColor: colors.shadowDark,
     textShadowOffset: { width: 0, height: 1 },
