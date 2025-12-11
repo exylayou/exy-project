@@ -1,28 +1,53 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Colors, Spacing, BorderRadius, Shadows } from '../../constants/theme';
 
-export default function Card({ children, style }) {
+export default function Card({
+  children,
+  imageSource,
+  imageHeight = 150,
+  style,
+  onPress,
+  padding = true
+}) {
+  const CardWrapper = onPress ? TouchableOpacity : View;
+
   return (
-    <View style={[styles.card, style]}>
-      {children}
-    </View>
+    <CardWrapper
+      style={[styles.card, style]}
+      onPress={onPress}
+      activeOpacity={onPress ? 0.8 : 1}
+    >
+      {imageSource && (
+        <Image
+          source={imageSource}
+          style={[styles.image, { height: imageHeight }]}
+          resizeMode="cover"
+        />
+      )}
+      <View style={[styles.content, !padding && styles.noPadding]}>
+        {children}
+      </View>
+    </CardWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: Colors.white,
+    borderRadius: BorderRadius.md,
+    marginVertical: Spacing.sm,
+    marginHorizontal: Spacing.base,
+    overflow: 'hidden',
+    ...Shadows.medium,
+  },
+  image: {
+    width: '100%',
+  },
+  content: {
+    padding: Spacing.base,
+  },
+  noPadding: {
+    padding: 0,
   },
 });

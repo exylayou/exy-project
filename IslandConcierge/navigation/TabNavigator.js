@@ -1,9 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { Colors, Layout, Typography } from '../constants/theme';
 
 // Import screens
-import ConciergeScreen from '../screens/ConciergeScreen';
+import ChatScreen from '../screens/ChatScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import ToursScreen from '../screens/ToursScreen';
 import EmergencyScreen from '../screens/EmergencyScreen';
@@ -18,7 +19,7 @@ export default function TabNavigator() {
           let iconName;
 
           switch (route.name) {
-            case 'Concierge':
+            case 'Chat':
               iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
               break;
             case 'Explore':
@@ -36,30 +37,35 @@ export default function TabNavigator() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#006994',
-        tabBarInactiveTintColor: '#4A90A4',
+        tabBarActiveTintColor: route.name === 'Emergency' ? Colors.emergency : Colors.primary,
+        tabBarInactiveTintColor: Colors.textSecondary,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopColor: '#E0E0E0',
+          backgroundColor: Colors.white,
+          borderTopColor: Colors.border,
           paddingBottom: 5,
           paddingTop: 5,
-          height: 60,
+          height: Layout.tabBarHeight,
+        },
+        tabBarLabelStyle: {
+          fontSize: Typography.fontSize.xs,
+          fontWeight: Typography.fontWeight.medium,
         },
         headerStyle: {
-          backgroundColor: '#006994',
+          backgroundColor: Colors.primary,
         },
-        headerTintColor: '#FFFFFF',
+        headerTintColor: Colors.white,
         headerTitleStyle: {
-          fontWeight: 'bold',
+          fontWeight: Typography.fontWeight.bold,
+          fontSize: Typography.fontSize.lg,
         },
       })}
     >
       <Tab.Screen
-        name="Concierge"
-        component={ConciergeScreen}
+        name="Chat"
+        component={ChatScreen}
         options={{
-          title: 'Concierge',
-          headerTitle: 'Island Concierge',
+          title: 'Chat',
+          headerTitle: '⭐ Island Concierge',
         }}
       />
       <Tab.Screen
@@ -67,7 +73,8 @@ export default function TabNavigator() {
         component={ExploreScreen}
         options={{
           title: 'Explore',
-          headerTitle: 'Explore the Island',
+          headerTitle: 'Explore',
+          headerShown: false, // Hero will be visible instead
         }}
       />
       <Tab.Screen
@@ -75,7 +82,8 @@ export default function TabNavigator() {
         component={ToursScreen}
         options={{
           title: 'Tours',
-          headerTitle: 'Island Tours',
+          headerTitle: 'Tours',
+          headerShown: false, // Hero will be visible instead
         }}
       />
       <Tab.Screen
@@ -83,8 +91,10 @@ export default function TabNavigator() {
         component={EmergencyScreen}
         options={{
           title: 'Emergency',
-          headerTitle: 'Emergency Info',
-          tabBarActiveTintColor: '#C41E3A',
+          headerTitle: 'Emergency',
+          headerStyle: {
+            backgroundColor: Colors.emergency,
+          },
         }}
       />
     </Tab.Navigator>
