@@ -1,12 +1,30 @@
-import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import ToursScreen from './screens/ToursScreen';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
-    <>
+    <View style={styles.container}>
+      <Text style={styles.text}>Welcome to SVG Tours</Text>
+      <Text style={styles.subtext}>Ready to build your app!</Text>
       <StatusBar style="auto" />
-      <ToursScreen />
-    </>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  subtext: {
+    fontSize: 16,
+    color: '#666',
+  },
+});
