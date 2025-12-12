@@ -1,7 +1,7 @@
 [build]
   base = "IslandConcierge"
   command = "npm run build"
-  publish = "IslandConcierge/dist"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20.19.4"
